@@ -1,0 +1,30 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi", "relationJoins"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @unique @default(cuid())
+  username String   @unique
+  password String
+  photos   Photos[]
+
+  @@map("users")
+}
+
+model Photos {
+  id         String  @id @unique @default(cuid())
+  caption    String
+  photo      String
+  university String
+  classYear  String  @map("class_year")
+  user       User?   @relation(fields: [userId], references: [id])
+  userId     String? @map("user_id")
+
+  @@map("photos")
+}
