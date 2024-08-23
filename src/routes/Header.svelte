@@ -19,7 +19,7 @@
 			</div>
 		{/if}
 		<div class="navbar-end gap-5">
-			<a href="/">All Photos</a>
+			<a href="/photos">Photos</a>
 
 			{#if user}
 				<a href="/new-photo" class="btn btn-sm">Add Photo</a>

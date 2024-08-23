@@ -1,0 +1,20 @@
+<script lang="ts">
+	import type { Photo } from "$lib/types.ts";
+
+	export let photo: Photo;
+</script>
+
+<figure class="shadow-lg min-h-52 bg-white rounded">
+	<img
+		src={photo.url || "https://placehold.co/250x200"}
+		alt={photo.caption}
+		class="w-full"
+	/>
+	<figcaption class="p-3">
+		<p class="text-sm text-gray-700">{photo.caption}</p>
+		<div class="flex items-center justify-between">
+			<p>{photo.university}</p>
+			<p>{photo.classYear}</p>
+		</div>
+	</figcaption>
+</figure>

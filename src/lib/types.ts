@@ -2,13 +2,14 @@ export type User = {
 	id?: string;
 	username: string;
 	password: string;
-	photos?: Photos[];
+	photos?: Photo[];
 };
 
-export type Photos = {
+export type Photo = {
 	id?: string;
 	caption: string;
-	photo: string | File;
+	blob: string | File;
+	url: string;
 	university: string;
 	classYear: string;
 	user?: User;

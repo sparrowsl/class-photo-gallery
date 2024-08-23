@@ -12,9 +12,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	try {
 		// unsign the JWT cookie payload to user object
-		const payload = jwt.verify(cookie, JWT_SECRET_KEY);
+		const payload = jwt.verify(cookie, JWT_SECRET_KEY) as User;
 
-		event.locals.user = payload as User;
+		event.locals.user = payload;
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (_e: any) {
 		console.log("could not parse JWT payload");

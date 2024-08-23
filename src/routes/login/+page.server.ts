@@ -39,22 +39,23 @@ export const actions: Actions = {
 			where: { username: output.username },
 		});
 
-		console.log(user);
-
 		try {
 			// if no user found or password does not match then return error message
 			if (!user || !(await bcrypt.compare(output.password, user.password))) {
 				return fail(400, { message: "Invalid username or password!!" });
 			}
 
-			const { password, ...rest } = user;
-			const payload = jwt.sign(rest, JWT_SECRET_KEY); // send payload to JWT
+			const payload = jwt.sign(
+				{ id: user.id, username: user.username },
+				JWT_SECRET_KEY,
+			);
 
 			cookies.set("user", payload, { path: "/", secure: true });
-			return { message: "login successfull" };
 			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		} catch (_e: any) {
 			return fail(400, { message: _e.message });
 		}
+
+		redirect(307, "/");
 	},
 };

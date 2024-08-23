@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
 	import { applyAction, enhance } from "$app/forms";
-	import { goto } from "$app/navigation";
 	import Icon from "@iconify/svelte";
 	import { toast } from "svelte-sonner";
+
+	let loading = false;
 </script>
 
 <section class="min-h-[50vh] grid place-content-center">
@@ -10,15 +11,16 @@
 		method="post"
 		class="shadow-xl p-14 rounded"
 		use:enhance={() => {
+			loading = true;
+
 			return async ({ result }) => {
 				if (result.type === "failure") {
 					toast.error(String(result.data?.message));
-				} else if (result.type === "success") {
-					toast.success(String(result.data?.message));
-					goto("/");
 				} else {
 					await applyAction(result);
 				}
+
+				loading = false;
 			};
 		}}
 	>
@@ -46,7 +48,16 @@
 				/>
 			</label>
 
-			<button type="submit" class="btn btn-accent">Login</button>
+			<button
+				type="submit"
+				class="btn btn-accent disabled:btn-disabled"
+				disabled={loading}
+			>
+				{#if loading}
+					<span class="loading loading-spinner loading-xs"></span>
+				{/if}
+				Login
+			</button>
 		</fieldset>
 	</form>
 </section>

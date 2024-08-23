@@ -1,5 +1,5 @@
 import db from "$lib/prisma.ts";
-import { fail, type Actions } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 import * as v from "valibot";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -31,7 +31,6 @@ export const actions: Actions = {
 
 		if (!success) {
 			const errors = issues.map((issue) => issue.message);
-			// return the first error message found if validation is wrong
 			return fail(400, { message: errors[0] });
 		}
 
@@ -50,7 +49,6 @@ export const actions: Actions = {
 		}
 
 		try {
-			// hash user password
 			const hashedPassword = await bcrypt.hash(output.password, 12);
 
 			const user = await db.user.create({
@@ -67,11 +65,12 @@ export const actions: Actions = {
 			const payload = jwt.sign(user, JWT_SECRET_KEY);
 
 			cookies.set("user", payload, { path: "/", secure: true });
-			return { message: "signup successful" };
 			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		} catch (error: any) {
 			console.log(error.message);
 			return fail(400, { message: error.message });
 		}
+
+		redirect(307, "/");
 	},
 };
