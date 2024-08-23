@@ -12,7 +12,7 @@
 	/>
 	<figcaption class="p-3">
 		<p class="text-sm text-gray-700">{photo.caption}</p>
-		<div class="flex items-center justify-between">
+		<div class="flex items-center justify-between text-sm">
 			<p>{photo.university}</p>
 			<p>{photo.classYear}</p>
 		</div>
