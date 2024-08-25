@@ -5,6 +5,14 @@
 	import { toast } from "svelte-sonner";
 
 	let loading = false;
+	let image: string;
+
+	const previewImage = (file: File) => {
+		if (file.size > 0) {
+			image = URL.createObjectURL(file);
+			URL.revokeObjectURL(file as unknown as string);
+		}
+	};
 </script>
 
 <section class="min-h-[50vh] max-w-4xl mx-auto">
@@ -38,6 +46,7 @@
 						class="file-input file-input-bordered"
 						name="blob"
 						required
+						on:change={(e) => previewImage(e.target?.files[0])}
 					/>
 				</div>
 
@@ -101,7 +110,7 @@
 		</form>
 
 		<img
-			src="https://placehold.co/300x250"
+			src={image || "https://placehold.co/300x250"}
 			alt="upload preview"
 			class="aspect-auto object-fill min-w-80"
 		/>
