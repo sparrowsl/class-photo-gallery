@@ -8,7 +8,8 @@
 	<img
 		src={photo.url || "https://placehold.co/250x200"}
 		alt={photo.caption}
-		class="w-full"
+		class="w-full max-w-56 lg:max-w-64"
+		loading="lazy"
 	/>
 	<figcaption class="p-3">
 		<p class="text-sm text-gray-700">{photo.caption}</p>

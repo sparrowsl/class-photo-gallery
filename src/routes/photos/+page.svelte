@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PhotoCard from "./PhotoCard.svelte";
 	import universities from "$lib/universities.json";
+	import type { PageServerData } from "../$types";
 
 	let university = "all";
 
@@ -12,10 +13,9 @@
 		return universities.filter((uni) => uni === value);
 	};
 
-	$: {
-		const photos = filterUniPhotos(university);
-		console.log(photos);
-	}
+	$: photos = filterUniPhotos(university);
+
+	export let data: PageServerData;
 </script>
 
 <section class="min-h-[80vh] py-5">
@@ -37,8 +37,8 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 lg:gap-5 justify-start">
-		{#each { length: 10 } as _}
-			<PhotoCard photo={{}} />
+		{#each data.photos as photo (photo.id)}
+			<PhotoCard {photo} />
 		{/each}
 	</div>
 </section>
