@@ -63,10 +63,12 @@
 					<label class="input input-bordered flex items-center gap-2">
 						<Icon icon="bi:calendar-date-fill" />
 						<input
-							type="date"
-							class="grow input border-0"
-							placeholder="Christex foundation just dropped a bounty"
+							type="number"
+							class="grow input border-0 placeholder:italic"
 							name="classYear"
+							placeholder="2023"
+							minlength="4"
+							maxlength="4"
 							required
 						/>
 					</label>
@@ -101,7 +103,7 @@
 		<img
 			src="https://placehold.co/300x250"
 			alt="upload preview"
-			class="aspect-auto object-fill"
+			class="aspect-auto object-fill min-w-80"
 		/>
 	</div>
 </section>
