@@ -21,7 +21,7 @@ model Photos {
   id         String  @id @unique @default(cuid())
   caption    String
   blob       String // a blob file
-  url        String
+  url        String?
   university String
   classYear  String  @map("class_year")
   user       User?   @relation(fields: [userId], references: [id])
