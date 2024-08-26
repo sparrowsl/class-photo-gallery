@@ -71,6 +71,6 @@ export const actions: Actions = {
 			return fail(400, { message: error.message });
 		}
 
-		redirect(307, "/");
+		redirect(307, "/photos");
 	},
 };

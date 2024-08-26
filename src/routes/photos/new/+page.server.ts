@@ -79,6 +79,7 @@ export const actions: Actions = {
 					caption: output.caption,
 					classYear: String(output.classYear),
 					university: output.university,
+					userId: output.userId,
 				},
 			});
 		} catch (error: any) {

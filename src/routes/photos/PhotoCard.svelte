@@ -12,11 +12,12 @@
 		class="w-full max-w-56 lg:max-w-64"
 		loading="lazy"
 	/>
-	<figcaption class="p-3">
+	<figcaption class="p-2 py-5">
 		<p class="text-sm text-gray-700">{photo.caption}</p>
+
 		<div class="flex items-center mt-4 justify-between text-sm">
 			<p class="badge badge-accent badge-sm">{photo.university}</p>
-			<p>{photo.classYear}</p>
+			<p class="text-xs">{photo.classYear}</p>
 		</div>
 	</figcaption>
 </figure>

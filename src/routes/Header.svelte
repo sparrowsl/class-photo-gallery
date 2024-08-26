@@ -11,7 +11,7 @@
 		{#if $page.data.user}
 			<div class="navbar-center hidden lg:flex">
 				<ul class="menu menu-horizontal px-1">
-					<h3 class="capitalize">Welcome back,</h3>
+					<h3 class="capitalize">Welcome {$page.data.user?.name}</h3>
 				</ul>
 			</div>
 		{/if}
@@ -19,10 +19,15 @@
 			<a href="/photos">Photos</a>
 
 			{#if $page.data.user}
-				<a href="/new-photo" class="btn btn-sm">Add Photo</a>
+				<a href="/photos/new" class="btn btn-sm">Add Photo</a>
 
-				<form method="post" class="btn btn-sm btn-error" use:enhance>
-					<button type="submit" formaction="/?/logout">logout</button>
+				<form
+					action="/?/logout"
+					method="post"
+					class="btn btn-sm btn-error"
+					use:enhance
+				>
+					<button type="submit">logout</button>
 				</form>
 			{:else}
 				<a href="/login" class="btn btn-sm">Login</a>
