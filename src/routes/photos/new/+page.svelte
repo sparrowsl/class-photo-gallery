@@ -64,7 +64,6 @@
 						{#each universities as university (university)}
 							<option value={university}>{university}</option>
 						{/each}
-						<option value="other">Other</option>
 					</select>
 				</div>
 

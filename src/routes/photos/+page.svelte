@@ -2,6 +2,7 @@
 	import PhotoCard from "./PhotoCard.svelte";
 	import universities from "$lib/universities.json";
 	import type { PageServerData } from "../$types";
+	import { page } from "$app/stores";
 
 	export let data: PageServerData;
 
@@ -11,8 +12,6 @@
 		if (value === "all") {
 			return data.photos;
 		}
-
-		console.log({ value });
 
 		return data.photos?.filter((photo) => photo.university === value);
 	};
@@ -35,7 +34,9 @@
 
 		<h2>Total Images {photos.length || 0}</h2>
 
-		<a href="/photos/new" class="btn-accent btn">Share Photo</a>
+		{#if $page.data.user}
+			<a href="/photos/new" class="btn-accent btn">Share Photo</a>
+		{/if}
 	</div>
 
 	<div class="flex flex-wrap gap-2 lg:gap-5 justify-start">

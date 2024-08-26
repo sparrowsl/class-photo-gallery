@@ -23,24 +23,28 @@ const photoSchema = v.object({
 		v.maxLength(4, "year must be 4 numbers"),
 		v.transform(Number),
 	),
-	// userId: v.string(),
+	userId: v.string(),
 });
 
 export const load: PageServerLoad = async ({ locals }) => {
-	// if (!locals.user) {
-	// 	redirect(307, "/photos");
-	// }
+	if (!locals.user) {
+		redirect(307, "/photos");
+	}
+
+	return { user: locals.user };
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const form = Object.fromEntries(
 			await request.formData(),
 		) as unknown as Photo;
 
-		const { output, issues, success } = v.safeParse(photoSchema, form, {
-			abortEarly: true,
-		});
+		const { output, issues, success } = v.safeParse(
+			photoSchema,
+			{ ...form, userId: locals.user.id },
+			{ abortEarly: true },
+		);
 		if (!success) {
 			const errors = issues.map((issue) => issue.message);
 			return fail(400, { message: errors[0] });

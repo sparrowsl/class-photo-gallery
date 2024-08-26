@@ -14,8 +14,8 @@
 	/>
 	<figcaption class="p-3">
 		<p class="text-sm text-gray-700">{photo.caption}</p>
-		<div class="flex items-center justify-between text-sm">
-			<p>{photo.university}</p>
+		<div class="flex items-center mt-4 justify-between text-sm">
+			<p class="badge badge-accent badge-sm">{photo.university}</p>
 			<p>{photo.classYear}</p>
 		</div>
 	</figcaption>
