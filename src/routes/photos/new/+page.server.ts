@@ -16,7 +16,13 @@ const photoSchema = v.object({
 		v.minSize(1, "file is too small or invalid"),
 	),
 	university: v.string(),
-	classYear: v.pipe(v.string(), v.trim(), v.transform(Number)),
+	classYear: v.pipe(
+		v.string(),
+		v.trim(),
+		v.minLength(4, "year must be 4 numbers"),
+		v.maxLength(4, "year must be 4 numbers"),
+		v.transform(Number),
+	),
 	// userId: v.string(),
 });
 
@@ -39,7 +45,6 @@ export const actions: Actions = {
 			const errors = issues.map((issue) => issue.message);
 			return fail(400, { message: errors[0] });
 		}
-		// console.log(output);
 
 		// convert image to string so it can be stored inside the database
 		// NOTE: render does not support storing files on disk, afaik
@@ -50,8 +55,9 @@ export const actions: Actions = {
 						width: 300,
 						height: 250,
 					})
+					.webp()
 					.toBuffer()
-			).toString("base64url");
+			).toString("base64");
 
 			// reassign image string to the blob
 			output.blob = base64urlImage as unknown as File;

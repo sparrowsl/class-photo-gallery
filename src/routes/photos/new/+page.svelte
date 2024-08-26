@@ -10,7 +10,8 @@
 	const previewImage = (file: File) => {
 		if (file.size > 0) {
 			image = URL.createObjectURL(file);
-			URL.revokeObjectURL(file as unknown as string);
+
+			setTimeout(() => URL.revokeObjectURL(image), 200);
 		}
 	};
 </script>

@@ -6,7 +6,8 @@
 
 <figure class="shadow-lg min-h-52 bg-white rounded">
 	<img
-		src={photo.url || "https://placehold.co/250x200"}
+		src={`data:image/webp;base64,${photo.blob}` ||
+			"https://placehold.co/250x200"}
 		alt={photo.caption}
 		class="w-full max-w-56 lg:max-w-64"
 		loading="lazy"
