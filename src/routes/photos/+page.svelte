@@ -3,19 +3,21 @@
 	import universities from "$lib/universities.json";
 	import type { PageServerData } from "../$types";
 
+	export let data: PageServerData;
+
 	let university = "all";
 
 	const filterUniPhotos = (value = "all") => {
 		if (value === "all") {
-			return universities;
+			return data.photos;
 		}
 
-		return universities.filter((uni) => uni === value);
+		console.log({ value });
+
+		return data.photos?.filter((photo) => photo.university === value);
 	};
 
 	$: photos = filterUniPhotos(university);
-
-	export let data: PageServerData;
 </script>
 
 <section class="min-h-[80vh] py-5">
@@ -31,14 +33,18 @@
 			{/each}
 		</select>
 
-		<h2>Total Images 10</h2>
+		<h2>Total Images {photos.length || 0}</h2>
 
 		<a href="/photos/new" class="btn-accent btn">Share Photo</a>
 	</div>
 
 	<div class="flex flex-wrap gap-2 lg:gap-5 justify-start">
-		{#each data.photos as photo (photo.id)}
+		{#each photos as photo (photo.id)}
 			<PhotoCard {photo} />
+		{:else}
+			<p class="text-gray-600 italic">
+				No photos uploaded for {university}!
+			</p>
 		{/each}
 	</div>
 </section>
